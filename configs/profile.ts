@@ -1,6 +1,7 @@
 
 
 const profile: Profile = {
+  githubUsername: "wuxuw34",
   name: "wuxuw",
   avatar: "/avatar.jpg",
   title: "I am wuxuw",

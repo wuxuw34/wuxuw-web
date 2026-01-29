@@ -25,4 +25,5 @@ interface Profile {
   tags?: string[];
   skills?: string[];
   experiences: Experience[];
+  githubUsername: string;
 }
