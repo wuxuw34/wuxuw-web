@@ -3,6 +3,7 @@ import GithubSection from "@/components/GithubSection";
 import HeroSection from "@/components/HeroSection";
 import SkillsSection from "@/components/SkillsSection";
 import TagsSection from "@/components/TagsSection";
+import WakaTimeSection from "@/components/WakaTimeSection";
 import config from "@/configs";
 
 export default function Page() {
@@ -19,6 +20,7 @@ export default function Page() {
         {/* 个人项目区域 */}
         <div className="flex-1">
           <GithubSection />
+          <WakaTimeSection />
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
+import Apis from "@/apis";
+import { useEffect } from "react";
 
+export default function WakaTimeSection() {
+  useEffect(() => {
+    Apis.wakatime.getCodingActivity();
+  }, []);
 
-export default function WakaTimeSection(){
-
-  return (
-    <div></div>
-  )
+  return <div></div>;
 }

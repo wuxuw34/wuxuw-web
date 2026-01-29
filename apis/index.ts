@@ -1,7 +1,9 @@
 import github from "./github"
+import wakatime from "./wakatime"
 
 const Apis = {
-  github
+  github,
+  wakatime
 }
 
 export default Apis
