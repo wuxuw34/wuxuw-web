@@ -1,5 +1,6 @@
 "use client";
 import Apis from "@/apis";
+import { GrGithub } from "react-icons/gr";
 import { githubContributionColor } from "@/constans/color";
 import { months, weeks } from "@/constans/date";
 import { getFirstDayOfYear } from "@/utils/date";
@@ -10,6 +11,7 @@ export default function GithubSection() {
     useState<(GithubContribution | null)[][]>();
   const [monthsColSpan, setMonthsColSpan] = useState<number[]>([]);
   const [firstDay, setFirstDay] = useState(getFirstDayOfYear()); // 这一年第一天是周几
+  const [year, setYear] = useState(firstDay.getFullYear());
 
   useEffect(() => {
     // 获取github热力图
@@ -52,11 +54,19 @@ export default function GithubSection() {
   }, [firstDay]);
 
   return (
-    <div className="card flex flex-row flex-nowrap">
+    <div className="card flex flex-col flex-nowrap gap-2">
+      <div className=" flex flex-col gap-1">
+        <div className="flex flex-row items-center gap-2">
+          <GrGithub className="text-lg" />
+          {year}年的贡献热力图
+        </div>
+        <div className="text-sm text-secondary">
+          {contributions?.length} contributions in {year}
+        </div>
+      </div>
       <table
         role="grid"
         className="w-full table-spacing"
-        
       >
         <thead>
           <tr>

@@ -6,6 +6,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --secondary: #f6f6f6be;
 }
 
 @theme inline {
@@ -13,6 +14,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-secondary: var(--secondary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +32,6 @@ body {
 }
 
 .table-spacing {
-  border-spacing:2px 1px; /* 12px */
+  border-spacing:4px 2px; /* 12px */
   border-collapse: separate;
 }
