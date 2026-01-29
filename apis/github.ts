@@ -2,26 +2,26 @@ import config from "@/configs"
 
 const fetchGithubContributions = async (year?: number): Promise<GithubContributionData> => {
   // 默认获取到最新一年的数据
-  if(!year){
+  if (!year) {
     year = new Date().getFullYear()
   }
   // 需要缓存数据
   const cacheKey = `github-contributions-${year}`
-  const cachedData = localStorage.getItem(cacheKey) as LocalStorageItem<string> | null
+  const cachedData = JSON.parse(localStorage.getItem(cacheKey) || '{}') as LocalStorageItem<GithubContributionData> | null
   // 如果没有过期就读取缓存
   if (cachedData && Date.now() - cachedData.createAt < config.settings.expirationTime) {
-    return JSON.parse(cachedData.value)
+    return cachedData.value
   } else {
     // 获取数据
     const response = await fetch(
-      `https://github-contributions-api.jogruber.de/v4/${config.profile.githubUsername}?year=${year}`
+      `https://github-contributions-api.jogruber.de/v4/${config.profile.githubUsername}?y=${year}`
     )
     const data = await response.json() as GithubContributionData
     // 缓存数据
     localStorage.setItem(
       cacheKey,
       JSON.stringify({
-        value: JSON.stringify(data),
+        value: data,
         createAt: Date.now()
       })
     )

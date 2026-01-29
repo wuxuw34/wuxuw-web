@@ -7,5 +7,5 @@ interface GithubContribution {
 
 interface GithubContributionData {
   total: Record<string, number>
-  contributionCalendar: GithubContribution[]
+  contributions: GithubContribution[]
 }
