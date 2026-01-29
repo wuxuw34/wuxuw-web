@@ -18,7 +18,7 @@ export default function Page() {
           <ExperienceSection experiences={config.profile.experiences || []} />
         </div>
         {/* 个人项目区域 */}
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col gap-2">
           <GithubSection />
           <WakaTimeSection />
         </div>
