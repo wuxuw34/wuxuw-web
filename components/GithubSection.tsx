@@ -1,5 +1,6 @@
 "use client";
 import Apis from "@/apis";
+import { githubContributionColor } from "@/constans/color";
 import { months, weeks } from "@/constans/date";
 import { getFirstDayOfYear } from "@/utils/date";
 import { useEffect, useState } from "react";
@@ -7,12 +8,7 @@ import { useEffect, useState } from "react";
 export default function GithubSection() {
   const [contributions, setContributions] =
     useState<(GithubContribution | null)[][]>();
-  const [monthData, setMonthData] = useState<
-    {
-      month: string;
-      colSpan: number;
-    }[]
-  >([]);
+  const [monthsColSpan, setMonthsColSpan] = useState<number[]>([]);
   const [firstDay, setFirstDay] = useState(getFirstDayOfYear()); // 这一年第一天是周几
 
   useEffect(() => {
@@ -21,11 +17,8 @@ export default function GithubSection() {
       // 这里需要计算一下，需要分组
       const map: (GithubContribution | null)[][] = [...weeks.map(() => [])];
       const offset = firstDay.getDay();
-      let flag = 0; // 记录当前月份
-      const monthData: {
-        month: string;
-        colSpan: number;
-      }[] = [];
+      const monthsColSpan: number[] = [];
+
       for (let i = 0; i < data.contributions.length + offset; i++) {
         if (i < offset) {
           // 前面几天为null
@@ -33,17 +26,15 @@ export default function GithubSection() {
         } else {
           const contribution = data.contributions[i - offset];
           const month = parseInt(contribution.date.split("-")[1]);
-          console.log("月份", month, flag);
-          if (month !== flag) {
-            const maxColSpan = Math.max(...map.map((item) => item.length));
-            const lastColSpan =
-              flag <= monthData.length ? monthData[flag].colSpan : 0;
-            monthData.push({
-              month: months[month - 1],
-              colSpan: maxColSpan - lastColSpan,
-            });
-            flag = month;
+          if (monthsColSpan.length < month) {
+            monthsColSpan.push(0);
           }
+          // 获取最长的月份
+          const maxColSpan = Math.max(...map.map((item) => item.length));
+          const lastColSpan = monthsColSpan
+            .slice(0, -1)
+            .reduce((prev, cur) => prev + cur, 0);
+          monthsColSpan[month - 1] = maxColSpan - lastColSpan;
           map[i % 7].push(contribution);
         }
       }
@@ -55,7 +46,8 @@ export default function GithubSection() {
         }
       });
       setContributions(map);
-      setMonthData(monthData);
+      console.log(monthsColSpan);
+      setMonthsColSpan(monthsColSpan);
     });
   }, [firstDay]);
 
@@ -63,15 +55,16 @@ export default function GithubSection() {
     <div className="card flex flex-row flex-nowrap">
       <table
         role="grid"
-        className="w-full"
+        className="w-full table-spacing"
+        
       >
         <thead>
           <tr>
             <td className="text-xs w-[28px] opacity-0">周/月</td>
-            {months.map((month) => (
+            {months.map((month, index) => (
               <td
                 role="gridcell"
-                colSpan={4}
+                colSpan={monthsColSpan[index]}
                 key={month}
                 className="text-xs"
               >
@@ -93,7 +86,13 @@ export default function GithubSection() {
                   key={index}
                   colSpan={1}
                 >
-                  {contribution?.level}
+                  <div
+                    className="w-[12px] h-[12px] rounded-xs "
+                    style={{
+                      backgroundColor:
+                        githubContributionColor[contribution?.level || 0],
+                    }}
+                  ></div>
                 </td>
               ))}
             </tr>

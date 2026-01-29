@@ -28,3 +28,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
 }
+
+.table-spacing {
+  border-spacing:2px 1px; /* 12px */
+  border-collapse: separate;
+}
