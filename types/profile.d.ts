@@ -4,6 +4,14 @@ interface Social {
   url: string;
 }
 
+interface Experience {
+  company: string;
+  position?: string;
+  startDate: string;
+  endDate: string;
+  description?: string;
+}
+
 interface Profile {
   name: string;
   avatar: string;
@@ -16,4 +24,5 @@ interface Profile {
   socials?: Social[];
   tags?: string[];
   skills?: string[];
+  experiences: Experience[];
 }
