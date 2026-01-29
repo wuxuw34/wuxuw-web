@@ -9,8 +9,24 @@ const profile: Profile = {
   sex: "male",
   location: '湖北',
   workExperience: 1.5,
-  skills:[
-    "javascript"
+  tags:[
+    "二次元",
+    "游戏"
+  ],
+  skills: [
+    "JavaScript",
+    "Git",
+    "TypeScript",
+    "Electron",
+    "React",
+    "Vue",
+    "Java",
+    "Python",
+    "HTML",
+    "CSS",
+    "NodeJs",
+    "npm",
+    "pnpm"
   ],
   socials: [
     {

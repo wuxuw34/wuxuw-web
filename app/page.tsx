@@ -5,7 +5,7 @@ import config from "@/configs";
 
 export default function Page() {
   return (
-    <div>
+    <div className="p-3">
       <HeroSection profile={config.profile} />
       <TagsSection tags={config.profile.tags || []} />
       <SkillsSection skills={config.profile.skills || []} />
