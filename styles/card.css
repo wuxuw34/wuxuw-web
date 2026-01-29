@@ -1,3 +1,7 @@
 .card {
   @apply rounded-xl backdrop-blur-xl p-3;
 }
+
+.mini-card {
+  @apply rounded-xl backdrop-blur-xl p-3;
+}
