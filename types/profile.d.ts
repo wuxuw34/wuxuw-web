@@ -1,7 +1,8 @@
 
 interface Social {
-  type: "github" | "linkedin" | "gmail";
+  type: "github" | "linkedin" | "gmail" | 'bilibili';
   url: string;
+  icon?: string;
 }
 
 interface Experience {

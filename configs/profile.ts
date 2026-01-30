@@ -1,4 +1,19 @@
 
+const socials: Social[] = [
+  {
+    type: 'gmail',
+    url: 'mailto:ljfwbd@gmail.com',
+  },
+  {
+    type: 'github',
+    url: 'https://github.com/wuxuw34',
+  },
+  {
+    type: 'bilibili',
+    url: 'https://space.bilibili.com/35105554',
+    icon: '/bilibili.svg'
+  }
+]
 
 const profile: Profile = {
   githubUsername: "wuxuw34",
@@ -29,16 +44,7 @@ const profile: Profile = {
     "npm",
     "pnpm"
   ],
-  socials: [
-    {
-      type: 'gmail',
-      url: 'mailto:ljfwbd@gmail.com',
-    },
-    {
-      type: 'github',
-      url: 'https://github.com/wuxuw34',
-    }
-  ],
+  socials,
   experiences: [
     {
       company: "西南民族大学",

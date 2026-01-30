@@ -12,10 +12,16 @@ export default function HeroSection({ profile }: HeroSectionProps) {
         alt={profile.name}
         width={100}
         height={100}
-        className="rounded-full border border-white cursor-pointer "
+        className="rounded-full border border-white cursor-pointer animate-spin"
+        style={{
+          animationDuration: "10s",
+        }}
       />
       <div className="text-2xl font-bold">{profile.name}</div>
-      <div className="flex flex-col items-start gap-3">
+      <div className="flex flex-col items-start gap-3 w-full text-shadow-lg">
+        <div>
+          <span className="text-blue-400">前端</span> 开发工程师
+        </div>
         <div>
           <span className="text-blue-400">
             {new Date().getFullYear() -
@@ -33,7 +39,7 @@ export default function HeroSection({ profile }: HeroSectionProps) {
           </span>
           {profile.location}
         </div>
-        <div className="skills flex flex-row gap-1 items-center w-full justify-center">
+        <div className="skills flex flex-row gap-2 items-center w-full justify-center">
           {profile.socials?.map((social) => {
             return (
               <a
@@ -43,7 +49,11 @@ export default function HeroSection({ profile }: HeroSectionProps) {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`https://skillicons.dev/icons?i=${social.type}&theme=light`}
+                  src={
+                    social.icon
+                      ? social.icon
+                      : `https://skillicons.dev/icons?i=${social.type}&theme=light`
+                  }
                   width={32}
                   height={32}
                   alt={social.type}

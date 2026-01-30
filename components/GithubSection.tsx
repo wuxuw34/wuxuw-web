@@ -67,7 +67,7 @@ export default function GithubSection() {
       <div className=" overflow-hidden ">
         <table
           role="grid"
-          className="w-full table-spacing overflow-x-auto"
+          className="w-full table-spacing overflow-x-auto min-w-[700px]"
         >
           <thead>
             <tr>
@@ -98,7 +98,7 @@ export default function GithubSection() {
                     colSpan={1}
                   >
                     <div
-                      className="w-[10px] h-[10px] rounded-xs "
+                      className="w-[12px] h-[12px] rounded-xs "
                       style={{
                         backgroundColor:
                           githubContributionColor[contribution?.level || 0],

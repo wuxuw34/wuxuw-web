@@ -1,5 +1,7 @@
+import type { IconType } from "react-icons";
 
-interface Page {
-  name:string,
-  path:string,
+export interface Page {
+  name: string,
+  path: string,
+  icon: IconType
 }
