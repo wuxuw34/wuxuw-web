@@ -32,7 +32,7 @@ const profile: Profile = {
   socials: [
     {
       type: 'gmail',
-      url: 'ljfwbd@gmail.com',
+      url: 'mailto:ljfwbd@gmail.com',
     },
     {
       type: 'github',

@@ -32,6 +32,6 @@ body {
 }
 
 .table-spacing {
-  border-spacing:4px 2px; /* 12px */
+  border-spacing:3px 1px; /* 12px */
   border-collapse: separate;
 }

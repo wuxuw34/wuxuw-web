@@ -64,51 +64,53 @@ export default function GithubSection() {
           {contributions?.length} contributions in {year}
         </div>
       </div>
-      <table
-        role="grid"
-        className="w-full table-spacing"
-      >
-        <thead>
-          <tr>
-            <td className="text-xs w-[28px] opacity-0">周/月</td>
-            {months.map((month, index) => (
-              <td
-                role="gridcell"
-                colSpan={monthsColSpan[index]}
-                key={month}
-                className="text-xs"
-              >
-                {month}
-              </td>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {weeks.map((week, index) => (
-            <tr key={week}>
-              <td
-                className={`text-xs w-[28px] ${index % 2 === 0 ? "opacity-0" : ""}`}
-              >
-                {week}
-              </td>
-              {contributions?.[index].map((contribution, index) => (
+      <div className=" overflow-hidden ">
+        <table
+          role="grid"
+          className="w-full table-spacing overflow-x-auto"
+        >
+          <thead>
+            <tr>
+              <td className="text-xs w-[28px] opacity-0">周/月</td>
+              {months.map((month, index) => (
                 <td
-                  key={index}
-                  colSpan={1}
+                  role="gridcell"
+                  colSpan={monthsColSpan[index]}
+                  key={month}
+                  className="text-xs"
                 >
-                  <div
-                    className="w-[12px] h-[12px] rounded-xs "
-                    style={{
-                      backgroundColor:
-                        githubContributionColor[contribution?.level || 0],
-                    }}
-                  ></div>
+                  {month}
                 </td>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {weeks.map((week, index) => (
+              <tr key={week}>
+                <td
+                  className={`text-xs w-[28px] ${index % 2 === 0 ? "opacity-0" : ""}`}
+                >
+                  {week}
+                </td>
+                {contributions?.[index].map((contribution, index) => (
+                  <td
+                    key={index}
+                    colSpan={1}
+                  >
+                    <div
+                      className="w-[10px] h-[10px] rounded-xs "
+                      style={{
+                        backgroundColor:
+                          githubContributionColor[contribution?.level || 0],
+                      }}
+                    ></div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
