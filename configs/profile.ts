@@ -61,7 +61,7 @@ const profile: Profile = {
     {
       company: "上海易宠科技有限公司",
       startDate: "2025-06",
-      endDate: "2026-10",
+      endDate: "2025-10",
       position: "远程兼职",
       description: "1. 负责公司前端项目的开发和维护\n2. 参与公司前端项目的需求分析和设计\n3. 与后端开发人员合作，解决前端项目中的技术问题",
     }
