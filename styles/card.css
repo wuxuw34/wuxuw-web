@@ -1,5 +1,5 @@
 .card {
-  @apply rounded-xl backdrop-blur-xl p-3;
+  @apply rounded-xl backdrop-blur-xl p-3 bg-[rgba(0,0,0,0.25)];
 }
 
 .mini-card {
