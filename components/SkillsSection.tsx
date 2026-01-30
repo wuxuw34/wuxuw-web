@@ -1,5 +1,6 @@
 "use client";
 import useWheel from "@/hooks/useWheel";
+import { useEffect, useRef } from "react";
 
 interface SkillProps {
   skill: string;
@@ -25,16 +26,57 @@ const Skill = ({ skill }: SkillProps) => {
 
 export default function SkillsSection({ skills }: { skills: string[] }) {
   const { y } = useWheel();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+
+    if (!scrollElement) return;
+    const scrollWidth = scrollElement.scrollWidth;
+    let func: number | null = null;
+    let time = 0;
+    const fn = (t: number = 0) => {
+      const left = scrollElement.scrollLeft;
+      if (left + scrollElement.clientWidth >= scrollWidth) {
+        scrollElement.scrollLeft = 0;
+      } else {
+        if (t - time >= 80) {
+          scrollElement.scrollLeft += 1;
+          time = t;
+        }
+      }
+      func = window.requestAnimationFrame(fn);
+    };
+    fn();
+    return () => {
+      if (func) {
+        window.cancelAnimationFrame(func);
+      }
+    };
+  }, []);
 
   return (
     <div className="card overflow-hidden w-full max-w-[100vw] ">
-      <div className=" flex flex-row gap-2 p-0 overflow-x-scroll flex-nowrap whitespace-nowrap max-w-full scrollbar-hide">
-        {skills.map((skill) => (
-          <Skill
-            key={skill}
-            skill={skill}
-          />
-        ))}
+      <div
+        className="flex flex-row gap-2 scrollbar-hide overflow-x-scroll"
+        ref={scrollRef}
+      >
+        <div className="flex flex-row gap-2 p-0  flex-nowrap whitespace-nowrap ">
+          {skills.map((skill) => (
+            <Skill
+              key={skill}
+              skill={skill}
+            />
+          ))}
+        </div>
+        <div className="flex flex-row gap-2 p-0  flex-nowrap whitespace-nowrap ">
+          {skills.map((skill) => (
+            <Skill
+              key={skill}
+              skill={skill}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
