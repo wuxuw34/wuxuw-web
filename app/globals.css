@@ -36,3 +36,18 @@ body {
   border-spacing: 3px 1px; /* 12px */
   border-collapse: separate;
 }
+
+.multi-line-ellipsis {
+  position: relative;
+  line-height: 1.5em;
+  /* 高度为需要显示的行数*行高，比如这里我们显示两行，则为3 */
+  height: 3em;
+  overflow: hidden;
+}
+.multi-line-ellipsis::after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 5px;
+}

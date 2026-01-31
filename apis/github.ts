@@ -1,4 +1,5 @@
 import config from "@/configs"
+import axiosInstance from "./http"
 
 const fetchGithubContributions = async (year?: number): Promise<GithubContributionData> => {
   // 默认获取到最新一年的数据
@@ -13,10 +14,10 @@ const fetchGithubContributions = async (year?: number): Promise<GithubContributi
     return cachedData.value
   } else {
     // 获取数据
-    const response = await fetch(
+    const response = await axiosInstance.get(
       `https://github-contributions-api.jogruber.de/v4/${config.profile.githubUsername}?y=${year}`
     )
-    const data = await response.json() as GithubContributionData
+    const data = response.data as GithubContributionData
     // 缓存数据
     localStorage.setItem(
       cacheKey,

@@ -5,8 +5,8 @@ interface Article {
   createAt: string;
   tags: string[];
   content?: string;
-  views: number;
-  likes: number;
+  views?: number;
+  likes?: number;
   description: string;
-  readTime: number;
+  readTime?: number;
 }
