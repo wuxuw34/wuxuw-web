@@ -5,9 +5,9 @@
 @import "../styles/card.css";
 
 :root {
-  --background: #ffffff;
   --foreground: #171717;
   --secondary: #f6f6f6be;
+  --background: rgba(255, 255, 255, 0.2);
 }
 
 @theme inline {
@@ -33,6 +33,6 @@ body {
 }
 
 .table-spacing {
-  border-spacing:3px 1px; /* 12px */
+  border-spacing: 3px 1px; /* 12px */
   border-collapse: separate;
 }
