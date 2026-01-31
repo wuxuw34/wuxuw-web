@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @source "../styles/*.css";
-@import "../styles/scrollbar.css";
+@source "../styles/*.scss";
+@import "../styles/scrollbar.scss";
 @import "../styles/timeline.scss";
 @import "../styles/card.css";
 
