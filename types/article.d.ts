@@ -9,4 +9,5 @@ interface Article {
   likes?: number;
   description: string;
   readTime?: number;
+  category: string;
 }

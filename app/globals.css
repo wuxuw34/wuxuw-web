@@ -8,11 +8,13 @@
   --foreground: #171717;
   --secondary: #f6f6f6be;
   --background: rgba(255, 255, 255, 0.2);
+  --primary:oklch(70.7% 0.165 254.624);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-secondary: var(--secondary);
@@ -38,16 +40,9 @@ body {
 }
 
 .multi-line-ellipsis {
-  position: relative;
-  line-height: 1.5em;
-  /* 高度为需要显示的行数*行高，比如这里我们显示两行，则为3 */
-  height: 3em;
-  overflow: hidden;
-}
-.multi-line-ellipsis::after {
-  content: "...";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 0 5px;
+  display: -webkit-box;           /* 必须设置为 -webkit-box */
+  -webkit-box-orient: vertical;   /* 垂直排列 */
+  -webkit-line-clamp: 2;          /* 限制显示 3 行，可改为任意正整数 */
+  overflow: hidden;               /* 隐藏溢出内容 */
+  text-overflow: ellipsis;        /* 可选，增强语义（实际由 -webkit-line-clamp 控制） */
 }

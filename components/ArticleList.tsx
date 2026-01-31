@@ -16,7 +16,7 @@ export default function ArticleList() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3 flex-1 card">
+    <div className="flex flex-col gap-3 flex-1 card grid grid-cols-3">
       {list.map((item) => (
         <ArticlePreview
           key={item.id}
