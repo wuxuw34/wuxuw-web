@@ -10,6 +10,8 @@ import { FaCheck } from "react-icons/fa";
 import useAutoScroll from "@/hooks/useAutoScroll";
 import useObserver from "@/hooks/useObserver";
 import { FaTags } from "react-icons/fa";
+import useThrottle from "@/hooks/useThrottle";
+import { MdOutlineToc } from "react-icons/md";
 
 const Heading = ({ content, level }: { content: string; level: number }) => {
   return (
@@ -108,6 +110,7 @@ const Code = ({ content, lang }: { content: string; lang: string }) => {
 export default function Article({ id }: { id: string }) {
   const [article, setArticle] = useState<Article>({} as Article);
   const [markdownLines, setMarkdownLines] = useState<MarkdownLine[]>([]);
+  const [currentHeading, setCurrentHeading] = useState<string>("");
   const tocRef = useRef<HTMLDivElement>(null);
   const { observeAllChildElements, observeElements } = useObserver(
     (entries) => {
@@ -116,6 +119,7 @@ export default function Article({ id }: { id: string }) {
           const id = entry.target.id;
           // 需要判断, 先不判断了, 更新hash值
           window.location.hash = id;
+          setCurrentHeading(id);
         }
       });
     },
@@ -134,11 +138,18 @@ export default function Article({ id }: { id: string }) {
     },
   }); // 自动滚动
   const markdownRef = useRef<HTMLDivElement>(null);
-
-  const updateTocOffset = useCallback(()=>{
-    const scrollTop = document.documentElement.scrollTop;
-    
-  },[])
+  const updateTocOffset = useCallback(() => {
+    if (!tocRef.current) return;
+    const scrollTop = window.scrollY;
+    const top = tocRef.current?.offsetTop || 0;
+    const offset = scrollTop - top + 12;
+    if (offset >= 0) {
+      tocRef.current.style.transform = `translateY(${offset}px)`;
+    }
+  }, []);
+  const throttleTocOffset = useThrottle(() => {
+    updateTocOffset();
+  }, 10);
 
   useEffect(() => {
     Apis.article.getById(id).then((res) => {
@@ -154,6 +165,16 @@ export default function Article({ id }: { id: string }) {
       }
     });
   }, [id]);
+
+  useEffect(() => {
+    const handler = () => {
+      throttleTocOffset();
+    };
+    window.addEventListener("scroll", handler);
+    return () => {
+      window.removeEventListener("scroll", handler);
+    };
+  }, [throttleTocOffset]);
 
   return (
     <div className="flex flex-row gap-2">
@@ -208,11 +229,39 @@ export default function Article({ id }: { id: string }) {
         </div>
       </div>
       <div
-        className="card w-fit h-fit"
+        className="card w-fit h-fit max-w-[300px] gap-2 flex flex-col"
         id="toc"
         ref={tocRef}
       >
-        <div>文章目录</div>
+        <div className="text-lg flex flex-row items-center gap-2">
+          <MdOutlineToc />
+          文章目录
+        </div>
+        <div className="flex flex-col">
+          {markdownLines.map((line, index) => {
+            if (line.type === "heading") {
+              return (
+                <div
+                  key={index}
+                  className={`${currentHeading === line.content ? "bg-primary hover:bg-primary/80" : ""} h-[40px] flex items-center rounded cursor-pointer hover:bg-background/20 p-1 `}
+                  onClick={() => {
+                    autoScroll.scrollToId(line.content);
+                    setCurrentHeading(line.content);
+                  }}
+                >
+                  <div
+                    className="truncate"
+                    style={{
+                      paddingLeft: `${line.level * 10}px`,
+                    }}
+                  >
+                    {line.content}
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ interface MarkdownParagraph {
 interface MarkdownHeading {
   type: "heading"
   content: string
-  level?: number
+  level: number
 }
 
 
