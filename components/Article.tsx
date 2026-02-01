@@ -2,13 +2,14 @@
 import "@/styles/markdown.scss";
 import Apis from "@/apis";
 import { handleContentToMarkdownLines } from "@/utils/markdown";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import hljs from "highlight.js";
 import { FaCopy } from "react-icons/fa";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
 import useAutoScroll from "@/hooks/useAutoScroll";
 import useObserver from "@/hooks/useObserver";
+import { FaTags } from "react-icons/fa";
 
 const Heading = ({ content, level }: { content: string; level: number }) => {
   return (
@@ -107,9 +108,37 @@ const Code = ({ content, lang }: { content: string; lang: string }) => {
 export default function Article({ id }: { id: string }) {
   const [article, setArticle] = useState<Article>({} as Article);
   const [markdownLines, setMarkdownLines] = useState<MarkdownLine[]>([]);
-  const autoScroll = useAutoScroll(); // 自动滚动
+  const tocRef = useRef<HTMLDivElement>(null);
+  const { observeAllChildElements, observeElements } = useObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target.id) {
+          const id = entry.target.id;
+          // 需要判断, 先不判断了, 更新hash值
+          window.location.hash = id;
+        }
+      });
+    },
+    {
+      threshold: 0,
+    },
+  );
+  const autoScroll = useAutoScroll({
+    scrollEnd: () => {
+      // 开始监听视口交互
+      if (!markdownRef.current) return;
+      observeAllChildElements(markdownRef);
+      // if (tocRef.current) {
+      //   observeElements([tocRef.current]);
+      // }
+    },
+  }); // 自动滚动
   const markdownRef = useRef<HTMLDivElement>(null);
-  useObserver(markdownRef);
+
+  const updateTocOffset = useCallback(()=>{
+    const scrollTop = document.documentElement.scrollTop;
+    
+  },[])
 
   useEffect(() => {
     Apis.article.getById(id).then((res) => {
@@ -127,37 +156,63 @@ export default function Article({ id }: { id: string }) {
   }, [id]);
 
   return (
-    <div className="card">
-      <div className="markdown" ref={markdownRef}>
-        {markdownLines.map((line, index) => {
-          if (line.type === "heading") {
-            return (
-              <Heading
-                key={index}
-                content={line.content}
-                level={line.level || 1}
-              />
-            );
-          } else if (line.type === "code") {
-            return (
-              <Code
-                key={index}
-                content={line.content}
-                lang={line.lang}
-              />
-            );
-          } else if (line.type === "break") {
-            return <br key={index} />;
-          }
-          return (
+    <div className="flex flex-row gap-2">
+      <div className="card flex flex-col gap-2">
+        <div className="text-4xl leading-tight font-bold">{article.title}</div>
+        <div className="text-xs text-secondary flex flex-row items-center gap-2">
+          <div>{article.createAt}</div> · {article.readTime || 0} 分钟 ·{" "}
+          {article.category}
+          {article?.tags?.map((tag) => (
             <div
-              key={index}
-              className="paragraph"
+              key={tag}
+              className="mini-card h-[24px] p-1! px-2! flex flex-row items-center gap-1"
             >
-              {line.content}
+              <FaTags />
+              {tag}
             </div>
-          );
-        })}
+          ))}
+        </div>
+        <div
+          className="markdown"
+          ref={markdownRef}
+        >
+          {markdownLines.map((line, index) => {
+            if (line.type === "heading") {
+              return (
+                <Heading
+                  key={index}
+                  content={line.content}
+                  level={line.level || 1}
+                />
+              );
+            } else if (line.type === "code") {
+              return (
+                <Code
+                  key={index}
+                  content={line.content}
+                  lang={line.lang}
+                />
+              );
+            } else if (line.type === "break") {
+              return <br key={index} />;
+            }
+            return (
+              <div
+                key={index}
+                className="paragraph"
+              >
+                {line.content}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div
+        className="card w-fit h-fit"
+        id="toc"
+        ref={tocRef}
+      >
+        <div>文章目录</div>
       </div>
     </div>
   );

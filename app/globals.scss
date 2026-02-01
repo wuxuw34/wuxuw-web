@@ -2,3 +2,16 @@
 @import "../styles/scrollbar.scss";
 @import "../styles/timeline.scss";
 @import "../styles/underline.scss";
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}

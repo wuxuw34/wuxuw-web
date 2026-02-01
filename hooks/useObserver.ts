@@ -6,23 +6,23 @@ import { RefObject, useCallback, useEffect, useRef } from "react";
  * @param callback 
  * @returns 
  */
-export default function useObserver(ref: RefObject<HTMLElement | null>, callback: (entries: IntersectionObserverEntry[]) => void, options?: IntersectionObserverInit) {
+export default function useObserver(callback: (entries: IntersectionObserverEntry[]) => void, options?: IntersectionObserverInit) {
 
   const observerRef = useRef<IntersectionObserver>(null);
 
   const observeElements = useCallback((els: HTMLElement[]) => {
+    console.log(observerRef.current)
     els.forEach((el) => {
       observerRef.current?.observe(el);
     })
-  }, [])
-  const observeAllChildElements = useCallback(() => {
+  }, [observerRef])
+  const observeAllChildElements = useCallback((ref: RefObject<HTMLElement | null>) => {
     if (!ref.current) return
     const childElements = ref.current.children;
     observeElements(Array.from(childElements) as HTMLElement[]);
-  }, [observeElements, ref])
+  }, [observeElements])
 
   useEffect(() => {
-    if (!ref.current) return
     observerRef.current = new IntersectionObserver(callback, options ?? {
       threshold: 0.5,
     })
@@ -31,7 +31,7 @@ export default function useObserver(ref: RefObject<HTMLElement | null>, callback
     return () => {
       observerRef.current?.disconnect()
     }
-  }, [ref, callback, options])
+  }, [])
 
   return {
     observerRef,

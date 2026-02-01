@@ -1,7 +1,6 @@
 import { MdDateRange } from "react-icons/md";
 import { IoTime } from "react-icons/io5";
 import { FaTags } from "react-icons/fa";
-import { BiCategory } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
 export default function ArticlePreview({ article }: { article: Article }) {
