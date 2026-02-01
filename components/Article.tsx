@@ -112,6 +112,7 @@ export default function Article({ id }: { id: string }) {
   const [markdownLines, setMarkdownLines] = useState<MarkdownLine[]>([]);
   const [currentHeading, setCurrentHeading] = useState<string>("");
   const tocRef = useRef<HTMLDivElement>(null);
+  const banTocOffset = useRef<boolean>(false); // 是否禁止目录偏移
   const { observeAllChildElements, observeElements } = useObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -168,17 +169,23 @@ export default function Article({ id }: { id: string }) {
 
   useEffect(() => {
     const handler = () => {
-      throttleTocOffset();
+      if(window.innerWidth > 768) {
+        throttleTocOffset();
+      }else{
+        if(!tocRef.current) return;
+        tocRef.current.style.transform = `translateY(0px)`;
+      }
     };
     window.addEventListener("scroll", handler);
+    window.addEventListener("resize", handler);
     return () => {
       window.removeEventListener("scroll", handler);
     };
   }, [throttleTocOffset]);
 
   return (
-    <div className="flex flex-row gap-2">
-      <div className="card flex flex-col gap-2">
+    <div className="flex flex-row gap-2 max-md:flex-col-reverse">
+      <div className="card flex flex-col gap-2 px-6!">
         <div className="text-4xl leading-tight font-bold">{article.title}</div>
         <div className="text-xs text-secondary flex flex-row items-center gap-2">
           <div>{article.createAt}</div> · {article.readTime || 0} 分钟 ·{" "}
@@ -229,7 +236,7 @@ export default function Article({ id }: { id: string }) {
         </div>
       </div>
       <div
-        className="card w-fit h-fit max-w-[300px] gap-2 flex flex-col"
+        className="card w-fit h-fit md:max-w-[300px] gap-2 flex flex-col max-md:w-full"
         id="toc"
         ref={tocRef}
       >
