@@ -6,8 +6,19 @@ const getAllArticles = async () => {
   return data
 }
 
+const getArticleById = async (id: string) => {
+  const resp = await axiosInstance.get('/api/article/get', {
+    params: {
+      id
+    }
+  })
+  const data = resp.data
+  return data
+}
+
 const article = {
-  all: getAllArticles
+  all: getAllArticles,
+  getById: getArticleById
 }
 
 export default article

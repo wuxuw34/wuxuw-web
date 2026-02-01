@@ -13,7 +13,7 @@ const pages: Page[] = [
   },
   {
     name: "文章",
-    path: "/articles",
+    path: "/article",
     icon: MdArticle
   },
   {
