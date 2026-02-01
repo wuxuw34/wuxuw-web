@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Background />
         <Menu />
-        <div className="flex flex-row pt-12 justify-center max-md:px-4">{children}</div>
+        <div className="flex flex-row pt-12 justify-center max-lg:px-4">{children}</div>
       </body>
     </html>
   );

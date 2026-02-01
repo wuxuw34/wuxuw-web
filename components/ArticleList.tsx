@@ -16,7 +16,7 @@ export default function ArticleList() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3 flex-1 card grid grid-cols-3 max-h-[calc(100vh-200px)] w-[600px] overflow-y-auto scrollbar">
+    <div className=" gap-3 flex-1 card grid grid-cols-3 max-h-[calc(100vh-200px)] w-[600px] overflow-y-auto scrollbar max-lg:w-full">
       {list.map((item) => (
         <ArticlePreview
           key={item.id}

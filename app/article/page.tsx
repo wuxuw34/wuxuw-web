@@ -7,7 +7,7 @@ import Calendar from "@/components/Calendar";
 
 export default function Page() {
   return (
-    <div className="max-w-6xl flex flex-row gap-3 flex-1">
+    <div className="max-w-6xl flex flex-row gap-3 flex-1 max-lg:flex-col">
       <div className="flex flex-col gap-3">
         <ArticleSearch />
         <ArticleFilterPanel />
