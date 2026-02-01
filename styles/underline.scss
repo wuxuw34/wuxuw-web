@@ -1,11 +1,14 @@
 .underline-bottom-line {
   background-image: linear-gradient(var(--primary), var(--primary));
-  background-size: 0 2px;
+  background-size: 0 3px;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: bottom right;
   width: fit-content;
+  transition: background-size 0.1s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background-size: 100% 2px;
+    background-position: bottom left;
   }
 }

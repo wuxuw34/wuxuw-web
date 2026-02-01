@@ -8,11 +8,14 @@ export const createMockWorker = () => {
   return new Promise<SetupWorker | null>((resolve) => {
     if (!mockWorker) {
       mockWorker = setupWorker(...handlers);
+      mockWorker.start({
+        quiet: true
+      }).then(() => {
+        resolve(mockWorker);
+      });
+      return
     }
-    mockWorker.start({
-      quiet: true
-    }).then(() => {
-      resolve(mockWorker);
-    });
+
+    resolve(mockWorker);
   });
 }

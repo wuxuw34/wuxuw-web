@@ -1,7 +1,7 @@
 .markdown {
   .code-block {
     background: #282c34;
-    pre  {
+    pre {
       display: block;
       overflow-x: auto;
     }
@@ -79,5 +79,21 @@
     .hljs-link {
       text-decoration: underline;
     }
+  }
+
+  // 自定义heading属性
+  @for $i from 1 through 6 {
+    .heading-#{$i} {
+      font-size: 1.5rem * pow(0.9, $i - 1);
+      font-weight: 600;
+      margin-bottom: 0.5em;
+      line-height: 1.25;
+      margin-top: if($i == 1, 0.5em, 0.25em / pow(1.2, $i - 1));
+    }
+  }
+
+  .paragraph{
+    color:rgba(255,255,255,0.9);
+    margin-bottom: 0.5em;
   }
 }

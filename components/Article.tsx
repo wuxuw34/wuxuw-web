@@ -7,6 +7,8 @@ import hljs from "highlight.js";
 import { FaCopy } from "react-icons/fa";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
+import useAutoScroll from "@/hooks/useAutoScroll";
+import useObserver from "@/hooks/useObserver";
 
 const Heading = ({ content, level }: { content: string; level: number }) => {
   return (
@@ -105,23 +107,28 @@ const Code = ({ content, lang }: { content: string; lang: string }) => {
 export default function Article({ id }: { id: string }) {
   const [article, setArticle] = useState<Article>({} as Article);
   const [markdownLines, setMarkdownLines] = useState<MarkdownLine[]>([]);
+  const autoScroll = useAutoScroll(); // 自动滚动
+  const markdownRef = useRef<HTMLDivElement>(null);
+  useObserver(markdownRef);
 
   useEffect(() => {
     Apis.article.getById(id).then((res) => {
       if (res.data.list.length) {
         const article = res.data.list[0];
         setArticle(article);
-        console.log(article.content);
         const markdownLines = handleContentToMarkdownLines(article.content);
-        console.log(markdownLines);
         setMarkdownLines(markdownLines);
+        // 渲染完成后滚动
+        setTimeout(() => {
+          autoScroll.scrollToId();
+        }, 10);
       }
     });
   }, [id]);
 
   return (
     <div className="card">
-      <div className="markdown">
+      <div className="markdown" ref={markdownRef}>
         {markdownLines.map((line, index) => {
           if (line.type === "heading") {
             return (
@@ -142,7 +149,14 @@ export default function Article({ id }: { id: string }) {
           } else if (line.type === "break") {
             return <br key={index} />;
           }
-          return <div key={index}>{line.content}</div>;
+          return (
+            <div
+              key={index}
+              className="paragraph"
+            >
+              {line.content}
+            </div>
+          );
         })}
       </div>
     </div>
