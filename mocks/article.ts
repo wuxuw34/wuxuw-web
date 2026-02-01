@@ -16,6 +16,8 @@ const articleHandlers: HttpHandler[] = [
             title: '文章标题',
             content: `# 这是一号标题
 
+            我现在正在测试一号标题的内容，我希望能够有一个编号，编号从1开始，每个编号占一行，编号后面跟着内容，内容和编号之间用空格隔开。
+
 ## 这是二号标题
 
 ### 这是三号标题
@@ -26,7 +28,7 @@ const articleHandlers: HttpHandler[] = [
 
 ###### 这是六号标题
 
-\`\`\`js
+\`\`\`javascript
 const a = 1
 let b = 2
 var c = 3
@@ -37,7 +39,8 @@ const fn = ()=>{
 
 function fn2(){
     console.log("this is b")
-}\`\`\`
+}
+\`\`\`
 
 这是一个结尾`,
             createAt: '2023-01-01',

@@ -2,6 +2,7 @@
 interface MarkdownCode {
   type: "code"
   content: string
+  lang: string
 }
 
 interface MarkdownParagraph {

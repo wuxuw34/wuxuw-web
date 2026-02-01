@@ -31,10 +31,12 @@ export const handleContentToMarkdownLines = (content: string): MarkdownLine[] =>
       while (endIndex < lines.length && !lines[endIndex].endsWith("```")) {
         endIndex++
       }
-      console.log(endIndex, '当前行数', lines.length)
+      // 获取到当前使用的语言
+      const lang = lines[i].substring(3).trim()
       markdownLines.push({
         type: "code",
-        content: lines.slice(i + 1, endIndex).join("\n").trim()
+        content: lines.slice(i + 1, endIndex).join("\n").trim(),
+        lang: lang
       })
       // 将i更新为endIndex，跳过代码块
       i = endIndex
