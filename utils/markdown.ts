@@ -40,14 +40,18 @@ export const handleContentToMarkdownLines = (content: string): MarkdownLine[] =>
       })
       // 将i更新为endIndex，跳过代码块
       i = endIndex
-    } else {
+    } else if (line.trim() !== "") {
       // 普通文本行
       markdownLines.push({
         type: "paragraph",
         content: line
       })
+    } else {
+      // 空行
+      markdownLines.push({
+        type: "break"
+      })
     }
-
   }
   return markdownLines
 }

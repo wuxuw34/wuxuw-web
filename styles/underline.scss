@@ -1,0 +1,11 @@
+.underline-bottom-line {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-size: 0 2px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: fit-content;
+
+  &:hover {
+    background-size: 100% 2px;
+  }
+}

@@ -1,4 +1,6 @@
-
+interface MarkdownBreak {
+  type: "break"
+}
 interface MarkdownCode {
   type: "code"
   content: string
@@ -18,4 +20,4 @@ interface MarkdownHeading {
 
 
 
-type MarkdownLine = MarkdownCode | MarkdownParagraph | MarkdownHeading
+type MarkdownLine = MarkdownCode | MarkdownParagraph | MarkdownHeading | MarkdownBreak

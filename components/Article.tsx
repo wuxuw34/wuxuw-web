@@ -12,7 +12,7 @@ const Heading = ({ content, level }: { content: string; level: number }) => {
   return (
     <div
       id={content}
-      className={`heading-${level}`}
+      className={`heading-${level} underline-bottom-line`}
     >
       {content}
     </div>
@@ -139,6 +139,8 @@ export default function Article({ id }: { id: string }) {
                 lang={line.lang}
               />
             );
+          } else if (line.type === "break") {
+            return <br key={index} />;
           }
           return <div key={index}>{line.content}</div>;
         })}
