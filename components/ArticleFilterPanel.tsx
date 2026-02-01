@@ -29,8 +29,7 @@ export default function ArticleFilterPanel() {
         {categoryList.map((category) => (
           <div
             key={category.name}
-            className={`flex flex-row gap-3 px-3 rounded-lg justify-between items-center hover:bg-[rgba(0,0,0,0.3)] h-[40px] cursor-pointer
-             ${selectedCategory === category.name ? "bg-blue-400" : "text-secondary bg-[rgba(0,0,0,0.2)]"}`}
+            className={`flex flex-row gap-3 px-3 rounded-lg justify-between items-center hover:bg-[rgba(0,0,0,0.3)] h-[40px] cursor-pointer ${selectedCategory === category.name ? "bg-primary hover:bg-primary/80!" : "text-secondary bg-[rgba(0,0,0,0.2)]"}`}
             onClick={() => {
               setSelectedCategory(category.name);
             }}
