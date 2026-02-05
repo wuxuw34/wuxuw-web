@@ -3,12 +3,17 @@ import { useCallback, useEffect, useState } from "react";
 
 interface UseMobileProps {
   size?: number,
-  callback?: (width: number) => void
+  callback?: (width: number) => void,
+  unit?: 'px' | 'rem'
 }
 
 export default function useMobile(props: UseMobileProps) {
 
-  const { size = 765, callback } = props
+  const { callback, unit = 'px' } = props
+  let { size = 1024 } = props
+  if (unit === 'rem') {
+    size = size * getRemInPx()
+  }
   const [isMobile, setIsMobile] = useState(false) // 是否是手机端
   const handler = useCallback(() => {
     const width = window.innerWidth

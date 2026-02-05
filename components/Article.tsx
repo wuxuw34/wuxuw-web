@@ -118,7 +118,7 @@ export default function Article({ id }: { id: string }) {
   const banTocOffset = useRef<boolean>(false); // 是否禁止目录偏移
   const isMobile = useMobile({
     callback(width) {
-      if (width <= 1024) {
+      if (width <= 64 * getRemInPx()) {
         banTocOffset.current = true;
       }
     },
