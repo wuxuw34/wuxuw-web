@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 /git提交规范.md
+/test.html
 
 # testing
 /coverage

@@ -1,5 +1,5 @@
 @import "./tw.css";
-@import "../styles/scrollbar.scss";
+
 @import "../styles/timeline.scss";
 @import "../styles/underline.scss";
 
@@ -15,3 +15,5 @@
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
+
+@import "../styles/scrollbar.scss";

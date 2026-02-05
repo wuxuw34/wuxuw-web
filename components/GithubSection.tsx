@@ -54,7 +54,7 @@ export default function GithubSection() {
   }, [firstDay]);
 
   return (
-    <div className="card flex flex-col flex-nowrap gap-2">
+    <div className="card ">
       <div className=" flex flex-col gap-1">
         <div className="flex flex-row items-center gap-2">
           <GrGithub className="text-lg" />
@@ -64,10 +64,10 @@ export default function GithubSection() {
           {contributions?.length} contributions in {year}
         </div>
       </div>
-      <div className=" overflow-hidden ">
+      <div className="overflow-x-auto w-full min-w-0">
         <table
           role="grid"
-          className="w-full table-spacing overflow-x-auto min-w-[700px]"
+          className="table-spacing w-max"
         >
           <thead>
             <tr>

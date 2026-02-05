@@ -56,7 +56,7 @@ export default function SkillsSection({ skills }: { skills: string[] }) {
   }, []);
 
   return (
-    <div className="card overflow-hidden w-full max-w-[100vw] ">
+    <div className="card overflow-hidden w-full max-w-full">
       <div
         className="flex flex-row gap-2 scrollbar-hide overflow-x-scroll"
         ref={scrollRef}
