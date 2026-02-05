@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { MdArticle } from "react-icons/md";
 import { VscGithubProject } from "react-icons/vsc";
 import { FaLink } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
+import { FaRegCommentDots } from "react-icons/fa";
 
 const pages: Page[] = [
   {
@@ -28,8 +28,8 @@ const pages: Page[] = [
   },
   {
     name: "留言",
-    path: "/messages",
-    icon:FaMessage
+    path: "/comments",
+    icon:FaRegCommentDots
   },
 ]
 
