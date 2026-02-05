@@ -1,6 +1,7 @@
 "use client";
 import Apis from "@/apis";
 import { avatarBgColor } from "@/constans/color";
+import { FaReply } from "react-icons/fa";
 import { useCallback, useEffect, useState } from "react";
 
 interface CommentItemProps {
@@ -15,7 +16,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 
   return (
     <div>
-      <div className="flex flex-row gap-2">
+      <div className="group flex flex-row gap-2">
         <div
           className="size-[32px] rounded-full text-center leading-[32px]"
           style={{
@@ -31,11 +32,16 @@ const CommentItem = ({ comment }: CommentItemProps) => {
               <span>{comment.os}</span>
               <span>{comment.browser}</span>
             </div>
-            <span className="text-secondary text-xs">
-              {new Date(comment.timestamp).toLocaleDateString()}
-            </span>
           </div>
-          <div>{comment.content}</div>
+          <div className="cursor-text select-text">{comment.content}</div>
+          <div className="flex flex-row gap-2 items-center">
+            <span className="text-secondary text-xs">
+              {new Date(comment.timestamp)
+                .toLocaleDateString()
+                .replace(/\//g, "-")}
+            </span>
+            <FaReply className="text-xs hover:text-primary cursor-pointer group-hover:opacity-100 opacity-0 transition-opacity duration-200" />
+          </div>
         </div>
       </div>
       <div className="flex flex-col pl-[32px] pt-3">
@@ -51,35 +57,14 @@ const CommentItem = ({ comment }: CommentItemProps) => {
   );
 };
 
-export default function CommentList() {
-  const [comments, setComments] = useState<Map<string, CommentMessage>>(
-    new Map()
-  );
+interface CommentListProps {
+  comments: Map<string, CommentMessage>;
+}
 
-  useEffect(() => {
-    Apis.comment.getAllComments().then((res) => {
-      console.log(res);
-      if (res.data.list?.length) {
-        const list = res.data.list as CommentMessage[];
-        // 处理数据,调整结构
-        const map = new Map<string, CommentMessage>();
-        list.forEach((comment) => {
-          if (comment.parentId) {
-            const parent = map.get(comment.parentId);
-            if (parent) {
-              if (!parent.children?.length) {
-                parent.children = [];
-              }
-              parent.children.push(comment);
-              return;
-            }
-          }
-          map.set(comment.id, comment);
-        });
-        setComments(map);
-      }
-    });
-  }, []);
+export default function CommentList({
+  comments,
+}: CommentListProps) {
+  
 
   return (
     <div className="py-3">

@@ -4,13 +4,30 @@ import { FaUser } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { IoSend } from "react-icons/io5";
 import { MdOutlineWebAsset } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDeviceInfo } from "@/utils/device";
+
+interface CommentInputProps {
+  send?: () => void;
+}
 
 export default function CommentInput() {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [website, setWebsite] = useState("");
-  const [content, setContent] = useState("");
+  const [comment, setComment] = useState<CommentMessage>({
+    username: "",
+    email: "",
+    website: "",
+    content: "",
+    id: "",
+    timestamp: 0,
+    os: "other",
+    browser: "",
+  });
+
+  useEffect(()=>{
+    // 获取系统信息
+    const info = getDeviceInfo()
+    console.log(info)
+  },[])
 
   return (
     <div className="flex flex-col gap-2 card mt-3">
@@ -25,7 +42,7 @@ export default function CommentInput() {
           className="h-10 text-sm"
           onChange={(e) => {
             const v = e.target.value || "";
-            setUsername(v);
+            setComment({ ...comment, username: v });
           }}
         />
         <Input
@@ -34,7 +51,7 @@ export default function CommentInput() {
           className="h-10 text-sm"
           onChange={(e) => {
             const v = e.target.value || "";
-            setEmail(v);
+            setComment({ ...comment, email: v });
           }}
         />
         <Input
@@ -43,7 +60,7 @@ export default function CommentInput() {
           className="h-10 text-sm"
           onChange={(e) => {
             const v = e.target.value || "";
-            setWebsite(v);
+            setComment({ ...comment, website: v });
           }}
         />
       </div>
@@ -53,7 +70,7 @@ export default function CommentInput() {
         placeholder="写下你的留言..."
         onChange={(e) => {
           const v = e.target.value || "";
-          setContent(v);
+          setComment({ ...comment, content: v });
         }}
       ></textarea>
       <div className="flex flex-row items-center justify-end">
