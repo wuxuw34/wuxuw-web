@@ -12,6 +12,7 @@ import useObserver from "@/hooks/useObserver";
 import { FaTags } from "react-icons/fa";
 import useThrottle from "@/hooks/useThrottle";
 import { MdOutlineToc } from "react-icons/md";
+import useMobile from "@/hooks/useMobile";
 
 const Heading = ({ content, level }: { content: string; level: number }) => {
   return (
@@ -76,7 +77,9 @@ const Code = ({ content, lang }: { content: string; lang: string }) => {
           }}
         >
           <IoIosArrowDropdownCircle
-            className={`${isCollapsed ? "" : "rotate-180"} transition-transform duration-300`}
+            className={`${
+              isCollapsed ? "" : "rotate-180"
+            } transition-transform duration-300`}
           />
           <div>{lang}</div>
         </div>
@@ -113,6 +116,13 @@ export default function Article({ id }: { id: string }) {
   const [currentHeading, setCurrentHeading] = useState<string>("");
   const tocRef = useRef<HTMLDivElement>(null);
   const banTocOffset = useRef<boolean>(false); // 是否禁止目录偏移
+  const isMobile = useMobile({
+    callback(width) {
+      if (width <= 1024) {
+        banTocOffset.current = true;
+      }
+    },
+  });
   const { observeAllChildElements, observeElements } = useObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -126,7 +136,7 @@ export default function Article({ id }: { id: string }) {
     },
     {
       threshold: 0,
-    },
+    }
   );
   const autoScroll = useAutoScroll({
     scrollEnd: () => {
@@ -169,10 +179,10 @@ export default function Article({ id }: { id: string }) {
 
   useEffect(() => {
     const handler = () => {
-      if(window.innerWidth > 768) {
+      if (window.innerWidth > 768) {
         throttleTocOffset();
-      }else{
-        if(!tocRef.current) return;
+      } else {
+        if (!tocRef.current) return;
         tocRef.current.style.transform = `translateY(0px)`;
       }
     };
@@ -250,7 +260,11 @@ export default function Article({ id }: { id: string }) {
               return (
                 <div
                   key={index}
-                  className={`${currentHeading === line.content ? "bg-primary hover:bg-primary/80" : ""} h-[40px] flex items-center rounded cursor-pointer hover:bg-background/20 p-1 `}
+                  className={`${
+                    currentHeading === line.content
+                      ? "bg-primary hover:bg-primary/80"
+                      : ""
+                  } h-[40px] flex items-center rounded cursor-pointer hover:bg-background/20 p-1 `}
                   onClick={() => {
                     autoScroll.scrollToId(line.content);
                     setCurrentHeading(line.content);
