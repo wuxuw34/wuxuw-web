@@ -8,7 +8,7 @@ import config from "@/configs";
 
 export default function Page() {
   return (
-    <div className="flex flex-col  lg:flex-row gap-3 max-lg:max-w-6xl">
+    <div className="flex flex-col  lg:flex-row gap-3 max-lg:max-w-6xl w-full">
       {/* 个人信息区域 */}
       <div className="flex flex-col gap-2 lg:w-[300px] w-full">
         <HeroSection profile={config.profile} />
@@ -17,11 +17,8 @@ export default function Page() {
         <ExperienceSection experiences={config.profile.experiences || []} />
       </div>
       {/* 个人项目区域 */}
-      <div className="flex flex-col gap-2 flex-1 min-w-0">
-        <div className="overflow-x-auto ">
-          {/* <GithubSection /> */}
-          <div className="w-[1000px]">1q2312</div>
-        </div>
+      <div className="flex flex-col gap-2 flex-1 min-w-0 w-full">
+        <GithubSection />
         <WakaTimeSection />
       </div>
     </div>

@@ -4,6 +4,7 @@ import "./globals.scss";
 
 import Background from "@/components/Background";
 import Menu from "@/components/Menu";
+import GithubSection from "@/components/GithubSection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <Background />
         <Menu />
-        <div className="flex flex-row pt-12 justify-center max-lg:px-4">{children}</div>
+        <div className="flex flex-row pt-12 max-lg:px-4">
+          {children}
+        </div>
       </body>
     </html>
   );
