@@ -13,7 +13,11 @@ export default function CommentInput() {
   const [content, setContent] = useState("");
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 card mt-3">
+      <div className="flex flex-row items-center gap-1 pb-3">
+        <IoSend />
+        发送留言
+      </div>
       <div className="flex flex-col gap-1 items-center lg:flex-row">
         <Input
           startIcon={<FaUser />}
@@ -46,7 +50,7 @@ export default function CommentInput() {
       <textarea
         className="card outline-transparent focus:outline-primary"
         rows={3}
-        placeholder="请输入文本..."
+        placeholder="写下你的留言..."
         onChange={(e) => {
           const v = e.target.value || "";
           setContent(v);
