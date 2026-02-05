@@ -1,4 +1,9 @@
 
+interface ArticleCategory {
+  name: string;
+  count: number;
+}
+
 interface Article {
   title: string;
   id: string;
@@ -11,3 +16,4 @@ interface Article {
   readTime?: number;
   category: string;
 }
+

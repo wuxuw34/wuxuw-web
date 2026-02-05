@@ -184,7 +184,7 @@ export default function Article({ id }: { id: string }) {
   }, [throttleTocOffset]);
 
   return (
-    <div className="flex flex-row gap-2 max-md:flex-col-reverse">
+    <div className="flex flex-row gap-2 max-lg:flex-col-reverse">
       <div className="card flex flex-col gap-2 px-6!">
         <div className="text-4xl leading-tight font-bold">{article.title}</div>
         <div className="text-xs text-secondary flex flex-row items-center gap-2">
@@ -236,7 +236,7 @@ export default function Article({ id }: { id: string }) {
         </div>
       </div>
       <div
-        className="card w-fit h-fit md:max-w-[300px] gap-2 flex flex-col max-md:w-full"
+        className="card w-fit h-fit lg:max-w-[300px] gap-2 flex flex-col max-lg:w-full"
         id="toc"
         ref={tocRef}
       >

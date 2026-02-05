@@ -70,6 +70,25 @@ function fn2(){
       }
     })
   }),
+  http.get('/api/article/categories', () => {
+    return HttpResponse.json({
+      code: 1,
+      data: [
+        {
+          name: '全部',
+          count: 2
+        },
+        {
+          name: '分类1',
+          count: 1
+        },
+        {
+          name: '分类2',
+          count: 1
+        }
+      ] as ArticleCategory[]
+    })
+  }),
 ]
 
 export default articleHandlers

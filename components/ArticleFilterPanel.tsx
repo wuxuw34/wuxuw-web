@@ -1,23 +1,30 @@
 "use client";
-import { useState } from "react";
+import Apis from "@/apis";
+import { useEffect, useState } from "react";
 import { BiCategory } from "react-icons/bi";
 
-export default function ArticleFilterPanel() {
+interface ArticleFilterPanelProps {
+  onChange?: (v: string) => void;
+}
+
+export default function ArticleFilterPanel({
+  onChange,
+}: ArticleFilterPanelProps) {
   const [selectedCategory, setSelectedCategory] = useState("全部");
-  const [categoryList, setCategoryList] = useState([
-    {
-      name: "全部",
-      count: 100,
-    },
-    {
-      name: "React",
-      count: 50,
-    },
-    {
-      name: "Next.js",
-      count: 30,
-    },
-  ]);
+  const [categoryList, setCategoryList] = useState<ArticleCategory[]>([]);
+
+  useEffect(() => {
+    onChange?.(selectedCategory);
+  }, [selectedCategory,onChange]);
+
+  useEffect(() => {
+    Apis.article.getArticleCategories().then((res) => {
+      console.log(res);
+      if (res.data.length) {
+        setCategoryList(res.data);
+      }
+    });
+  }, []);
 
   return (
     <div className="card h-fit flex flex-col gap-3 min-w-[240px]">
@@ -29,7 +36,11 @@ export default function ArticleFilterPanel() {
         {categoryList.map((category) => (
           <div
             key={category.name}
-            className={`flex flex-row gap-3 px-3 rounded-lg justify-between items-center hover:bg-[rgba(0,0,0,0.3)] h-[40px] cursor-pointer ${selectedCategory === category.name ? "bg-primary hover:bg-primary/80!" : "text-secondary bg-[rgba(0,0,0,0.2)]"}`}
+            className={`flex flex-row gap-3 px-3 rounded-lg justify-between items-center hover:bg-[rgba(0,0,0,0.3)] h-[40px] cursor-pointer ${
+              selectedCategory === category.name
+                ? "bg-primary hover:bg-primary/80!"
+                : "text-secondary bg-[rgba(0,0,0,0.2)]"
+            }`}
             onClick={() => {
               setSelectedCategory(category.name);
             }}

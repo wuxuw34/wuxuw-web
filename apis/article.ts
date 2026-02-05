@@ -1,3 +1,4 @@
+import { Cache } from "@/utils/cache"
 import axiosInstance from "./http"
 
 const getAllArticles = async () => {
@@ -16,9 +17,23 @@ const getArticleById = async (id: string) => {
   return data
 }
 
+const getArticleCategories = async () => {
+  const cacheKey = "article_categories"
+  const cache = new Cache(cacheKey)
+  if (cache.get()) {
+    return cache.get()!
+  } else {
+    const resp = await axiosInstance.get('/api/article/categories')
+    const data = resp.data
+    cache.set(data)
+    return data
+  }
+}
+
 const article = {
   all: getAllArticles,
-  getById: getArticleById
+  getById: getArticleById,
+  getArticleCategories
 }
 
 export default article
