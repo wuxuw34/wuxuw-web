@@ -8,7 +8,7 @@ import config from "@/configs";
 
 export default function Page() {
   return (
-    <div className="flex flex-col  lg:flex-row gap-3 max-lg:max-w-6xl w-full">
+    <div className="flex flex-col  lg:flex-row gap-3 max-w-6xl w-full">
       {/* 个人信息区域 */}
       <div className="flex flex-col gap-2 lg:w-[300px] w-full">
         <HeroSection profile={config.profile} />

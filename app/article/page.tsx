@@ -1,8 +1,8 @@
 "use client"
-import ArticleAnalyticsPanel from "@/components/ArticleAnalyticsPanel";
-import ArticleFilterPanel from "@/components/ArticleFilterPanel";
-import ArticleList from "@/components/ArticleList";
-import ArticleSearch from "@/components/ArticleSearch";
+import ArticleAnalyticsPanel from "@/components/article/ArticleAnalyticsPanel";
+import ArticleFilterPanel from "@/components/article/ArticleFilterPanel";
+import ArticleList from "@/components/article/ArticleList";
+import ArticleSearch from "@/components/article/ArticleSearch";
 
 import Calendar from "@/components/Calendar";
 import { useState } from "react";
