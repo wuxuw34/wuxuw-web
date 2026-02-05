@@ -116,7 +116,7 @@ export default function Article({ id }: { id: string }) {
   const [currentHeading, setCurrentHeading] = useState<string>("");
   const tocRef = useRef<HTMLDivElement>(null);
   const banTocOffset = useRef<boolean>(false); // 是否禁止目录偏移
-  const isMobile = useMobile({
+  useMobile({
     callback(width) {
       if (width <= 64 * getRemInPx()) {
         banTocOffset.current = true;
