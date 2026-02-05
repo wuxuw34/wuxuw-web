@@ -2,13 +2,20 @@
 import { FaRegCommentDots } from "react-icons/fa";
 import CommentInput from "./input";
 import CommentList from "./CommentList";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Apis from "@/apis";
 
 export default function Comments() {
   const [comments, setComments] = useState<Map<string, CommentMessage>>(
     new Map()
   );
+  const sendMessage = useCallback((comment: CommentMessage) => {
+    setComments(pre=>{
+      const newComments = new Map(pre);
+      newComments.set(comment.id, comment);
+      return newComments;
+    })
+  }, []);
 
   useEffect(() => {
     Apis.comment.getAllComments().then((res) => {
@@ -45,7 +52,7 @@ export default function Comments() {
         <div className="text-xs text-secondary">说点什么吧~ · 🥰</div>
         <CommentList comments={comments} />
       </div>
-      <CommentInput />
+      <CommentInput send={sendMessage} />
     </div>
   );
 }

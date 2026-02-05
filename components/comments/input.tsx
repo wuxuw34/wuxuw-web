@@ -6,12 +6,13 @@ import { IoSend } from "react-icons/io5";
 import { MdOutlineWebAsset } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getDeviceInfo } from "@/utils/device";
+import { nanoid } from "nanoid";
 
 interface CommentInputProps {
-  send?: () => void;
+  send?: (comment: CommentMessage) => void;
 }
 
-export default function CommentInput() {
+export default function CommentInput({ send }: CommentInputProps) {
   const [comment, setComment] = useState<CommentMessage>({
     username: "",
     email: "",
@@ -23,11 +24,18 @@ export default function CommentInput() {
     browser: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     // 获取系统信息
-    const info = getDeviceInfo()
-    console.log(info)
-  },[])
+    const info = getDeviceInfo();
+    const update = () => {
+      setComment((pre) => ({
+        ...pre,
+        os: info.os,
+        browser: info.browser,
+      }));
+    };
+    update();
+  }, []);
 
   return (
     <div className="flex flex-col gap-2 card mt-3">
@@ -74,7 +82,16 @@ export default function CommentInput() {
         }}
       ></textarea>
       <div className="flex flex-row items-center justify-end">
-        <button className="card flex flex-row items-center gap-1 py-2! hover:bg-primary! cursor-pointer ">
+        <button
+          className="card flex flex-row items-center gap-1 py-2! hover:bg-primary! cursor-pointer "
+          onClick={() => {
+            send?.({
+              ...comment,
+              id: nanoid(),
+              timestamp: Date.now(),
+            });
+          }}
+        >
           <IoSend />
           发送
         </button>
