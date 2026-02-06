@@ -19,6 +19,7 @@ export default function Comments() {
   }, []);
   const onReply = useCallback(
     (id: string) => {
+      const comment = comments.get(id);
       commentInputRef.current?.replyTo(comments.get(id)!);
     },
     [commentInputRef, comments]
@@ -39,7 +40,6 @@ export default function Comments() {
                 parent.children = [];
               }
               parent.children.push(comment);
-              return;
             }
           }
           map.set(comment.id, comment);

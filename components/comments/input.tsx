@@ -3,6 +3,7 @@ import Input from "../input";
 import { FaUser } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { IoSend } from "react-icons/io5";
+import { IoIosClose } from "react-icons/io";
 import { MdOutlineWebAsset } from "react-icons/md";
 import React, {
   forwardRef,
@@ -13,11 +14,12 @@ import React, {
 import { getDeviceInfo } from "@/utils/device";
 import { nanoid } from "nanoid";
 import { FaReply } from "react-icons/fa";
-import { getColorByString } from "@/utils/color";
+import { getColorByString, hexToRgba } from "@/utils/color";
 
 interface CommentInputProps {
   send?: (comment: CommentMessage) => void;
   replyComment?: CommentMessage;
+  onCancelReply?: () => void;
 }
 
 export interface CommentInputRef {
@@ -25,7 +27,7 @@ export interface CommentInputRef {
 }
 
 const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
-  ({ send }, ref) => {
+  ({ send, onCancelReply }, ref) => {
     const [comment, setComment] = useState<CommentMessage>({
       username: "",
       email: "",
@@ -71,24 +73,36 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
             style={
               {
                 "--color": getColorByString(comment.username),
+                "--bg-color": hexToRgba(
+                  getColorByString(comment.username),
+                  0.1
+                ),
               } as React.CSSProperties
             }
           >
             <FaReply
+              className="w-[22px] h-[22px]"
               style={{
                 color: "var(--color)",
               }}
             />
-            <div className="flex flex-col gap-1 rounded bg-[var(--color)]/10">
+            <div className="relative flex flex-col gap-1 rounded bg-(--bg-color) w-full py-2 pl-3 before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:bg-(--color) before:w-[3px] overflow-hidden">
               <span
-                className=""
+                className="text-sm"
                 style={{
                   color: "var(--color)",
                 }}
               >
                 {replyComment.username}
               </span>
+              <p className="truncate text-sm">{replyComment.content}</p>
             </div>
+            <IoIosClose
+              className="text-(--color) w-[32px] h-[32px] cursor-pointer"
+              onClick={() => {
+                setReplyComment(null);
+              }}
+            />
           </div>
         )}
         <div className="flex flex-col gap-1 items-center lg:flex-row">

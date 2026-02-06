@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 
 interface CommentItemProps {
   comment: CommentMessage;
-  onReply?: () => void;
+  onReply?: (id: string) => void;
 }
 
 const CommentItem = ({ comment, onReply }: CommentItemProps) => {
@@ -43,7 +43,9 @@ const CommentItem = ({ comment, onReply }: CommentItemProps) => {
             </span>
             <FaReply
               className="text-xs hover:text-primary cursor-pointer group-hover:opacity-100 opacity-0 transition-opacity duration-200"
-              onClick={onReply}
+              onClick={() => {
+                onReply?.(comment.id);
+              }}
             />
           </div>
         </div>
@@ -54,6 +56,9 @@ const CommentItem = ({ comment, onReply }: CommentItemProps) => {
             <CommentItem
               key={children.id}
               comment={children}
+              onReply={() => {
+                onReply?.(children.id);
+              }}
             />
           ))}
       </div>
@@ -75,15 +80,17 @@ export default function CommentList({ comments, onReply }: CommentListProps) {
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          {Array.from(comments.values()).map((comment) => (
-            <CommentItem
-              comment={comment}
-              key={comment.id}
-              onReply={() => {
-                onReply?.(comment.id);
-              }}
-            />
-          ))}
+          {Array.from(comments.values())
+            .filter((c) => !c.parentId)
+            .map((comment) => (
+              <CommentItem
+                comment={comment}
+                key={comment.id}
+                onReply={(id) => {
+                  onReply?.(id);
+                }}
+              />
+            ))}
           {/* 需要一个页面指示器 */}
         </div>
       )}
