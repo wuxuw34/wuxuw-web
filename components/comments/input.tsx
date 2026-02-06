@@ -150,9 +150,7 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
               send?.({
                 ...comment,
                 id: nanoid(),
-                parentId: replyComment?.parentId
-                  ? replyComment.parentId
-                  : replyComment?.id,
+                parentId: replyComment?.id,
                 timestamp: Date.now(),
               });
             }}

@@ -16,18 +16,16 @@ export default function Comments() {
       if (comment.parentId) {
         const parent = newComments.get(comment.parentId);
         if (parent) {
-          const newParent: CommentMessage = {
-            ...parent,
-            children: parent.children?.length
-              ? [...parent.children, comment]
-              : [comment],
-          };
-          console.log(newParent)
-          newComments.set(newParent.id, newParent);
+          parent.children = Array.from(
+            new Set(
+              parent.children?.length
+                ? [...parent.children, comment]
+                : [comment]
+            )
+          );
         }
       }
       newComments.set(comment.id, comment);
-      console.log(newComments)
       return newComments;
     });
   }, []);

@@ -56,8 +56,8 @@ const CommentItem = ({ comment, onReply }: CommentItemProps) => {
             <CommentItem
               key={children.id}
               comment={children}
-              onReply={() => {
-                onReply?.(children.id);
+              onReply={(id) => {
+                onReply?.(id);
               }}
             />
           ))}
