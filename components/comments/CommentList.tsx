@@ -16,7 +16,7 @@ const CommentItem = ({ comment, onReply }: CommentItemProps) => {
   }, [comment.username]);
 
   return (
-    <div>
+    <div className="w-full overflow-x-auto">
       <div className="group flex flex-row gap-2">
         <div
           className="size-[32px] rounded-full text-center leading-[32px]"
@@ -26,7 +26,7 @@ const CommentItem = ({ comment, onReply }: CommentItemProps) => {
         >
           {comment.username?.charAt(0).toUpperCase()}
         </div>
-        <div className="flex flex-col w-full">
+        <div className="flex flex-1 flex-col">
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row items-center gap-1">
               <span className="text-sm">{comment.username || "匿名用户"}</span>

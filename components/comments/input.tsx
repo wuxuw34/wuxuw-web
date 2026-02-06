@@ -109,7 +109,7 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
           <Input
             startIcon={<FaUser />}
             placeholder="昵称"
-            className="h-10 text-sm"
+            className="h-10 text-sm w-full"
             onChange={(e) => {
               const v = e.target.value || "";
               setComment({ ...comment, username: v });
@@ -118,7 +118,7 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
           <Input
             startIcon={<CiMail />}
             placeholder="邮箱 (可选)"
-            className="h-10 text-sm"
+            className="h-10 text-sm w-full"
             onChange={(e) => {
               const v = e.target.value || "";
               setComment({ ...comment, email: v });
@@ -127,7 +127,7 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
           <Input
             startIcon={<MdOutlineWebAsset />}
             placeholder="网站 (可选)"
-            className="h-10 text-sm"
+            className="h-10 text-sm w-full"
             onChange={(e) => {
               const v = e.target.value || "";
               setComment({ ...comment, website: v });

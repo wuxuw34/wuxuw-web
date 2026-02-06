@@ -18,14 +18,14 @@ const commentsHandlers: HttpHandler[] = [
             content: "这是第二条评论，回复第一条评论。",
             username: "用户二",
             timestamp: Date.now() - 1000 * 60 * 30,
-            parentId: "1",
+            // parentId: "1",
           },
           {
             id: "3",
             content: "这是第三条评论，独立评论。",
             username: "用户三",
             timestamp: Date.now() - 1000 * 60 * 10,
-            parentId: "1",
+            // parentId: "1",
           },
           {
             id: "4",
