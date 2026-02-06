@@ -72,9 +72,9 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
             className="flex flex-row items-center gap-2"
             style={
               {
-                "--color": getColorByString(comment.username),
+                "--color": getColorByString(replyComment.username),
                 "--bg-color": hexToRgba(
-                  getColorByString(comment.username),
+                  getColorByString(replyComment.username),
                   0.1
                 ),
               } as React.CSSProperties
@@ -150,6 +150,9 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
               send?.({
                 ...comment,
                 id: nanoid(),
+                parentId: replyComment?.parentId
+                  ? replyComment.parentId
+                  : replyComment?.id,
                 timestamp: Date.now(),
               });
             }}

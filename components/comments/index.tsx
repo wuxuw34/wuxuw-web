@@ -13,13 +13,26 @@ export default function Comments() {
   const sendMessage = useCallback((comment: CommentMessage) => {
     setComments((pre) => {
       const newComments = new Map(pre);
+      if (comment.parentId) {
+        const parent = newComments.get(comment.parentId);
+        if (parent) {
+          const newParent: CommentMessage = {
+            ...parent,
+            children: parent.children?.length
+              ? [...parent.children, comment]
+              : [comment],
+          };
+          console.log(newParent)
+          newComments.set(newParent.id, newParent);
+        }
+      }
       newComments.set(comment.id, comment);
+      console.log(newComments)
       return newComments;
     });
   }, []);
   const onReply = useCallback(
     (id: string) => {
-      const comment = comments.get(id);
       commentInputRef.current?.replyTo(comments.get(id)!);
     },
     [commentInputRef, comments]
