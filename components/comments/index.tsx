@@ -1,21 +1,28 @@
 "use client";
 import { FaRegCommentDots } from "react-icons/fa";
-import CommentInput from "./input";
+import CommentInput, { CommentInputRef } from "./input";
 import CommentList from "./CommentList";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Apis from "@/apis";
 
 export default function Comments() {
   const [comments, setComments] = useState<Map<string, CommentMessage>>(
     new Map()
   );
+  const commentInputRef = useRef<CommentInputRef>(null);
   const sendMessage = useCallback((comment: CommentMessage) => {
-    setComments(pre=>{
+    setComments((pre) => {
       const newComments = new Map(pre);
       newComments.set(comment.id, comment);
       return newComments;
-    })
+    });
   }, []);
+  const onReply = useCallback(
+    (id: string) => {
+      commentInputRef.current?.replyTo(comments.get(id)!);
+    },
+    [commentInputRef, comments]
+  );
 
   useEffect(() => {
     Apis.comment.getAllComments().then((res) => {
@@ -50,9 +57,15 @@ export default function Comments() {
           留言板
         </div>
         <div className="text-xs text-secondary">说点什么吧~ · 🥰</div>
-        <CommentList comments={comments} />
+        <CommentList
+          comments={comments}
+          onReply={onReply}
+        />
       </div>
-      <CommentInput send={sendMessage} />
+      <CommentInput
+        send={sendMessage}
+        ref={commentInputRef}
+      />
     </div>
   );
 }

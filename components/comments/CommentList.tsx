@@ -6,9 +6,10 @@ import { useCallback, useEffect, useState } from "react";
 
 interface CommentItemProps {
   comment: CommentMessage;
+  onReply?: () => void;
 }
 
-const CommentItem = ({ comment }: CommentItemProps) => {
+const CommentItem = ({ comment, onReply }: CommentItemProps) => {
   const getAvatarColor = useCallback(() => {
     const code = String(comment.username).charCodeAt(0);
     return avatarBgColor[code % avatarBgColor.length];
@@ -40,7 +41,10 @@ const CommentItem = ({ comment }: CommentItemProps) => {
                 .toLocaleDateString()
                 .replace(/\//g, "-")}
             </span>
-            <FaReply className="text-xs hover:text-primary cursor-pointer group-hover:opacity-100 opacity-0 transition-opacity duration-200" />
+            <FaReply
+              className="text-xs hover:text-primary cursor-pointer group-hover:opacity-100 opacity-0 transition-opacity duration-200"
+              onClick={onReply}
+            />
           </div>
         </div>
       </div>
@@ -59,13 +63,10 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 
 interface CommentListProps {
   comments: Map<string, CommentMessage>;
+  onReply?: (commentId: string) => void;
 }
 
-export default function CommentList({
-  comments,
-}: CommentListProps) {
-  
-
+export default function CommentList({ comments, onReply }: CommentListProps) {
   return (
     <div className="py-3">
       {comments.size === 0 ? (
@@ -78,6 +79,9 @@ export default function CommentList({
             <CommentItem
               comment={comment}
               key={comment.id}
+              onReply={() => {
+                onReply?.(comment.id);
+              }}
             />
           ))}
           {/* 需要一个页面指示器 */}
