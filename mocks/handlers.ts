@@ -1,6 +1,7 @@
 import { http, HttpHandler, HttpResponse } from 'msw';
 import articleHandlers from './article';
 import commentsHandlers from './comment';
+import friendsHandlers from './friends';
 
 
 export const handlers: HttpHandler[] = [
@@ -8,5 +9,6 @@ export const handlers: HttpHandler[] = [
     return HttpResponse.json({ message: 'hello world' })
   }),
   ...articleHandlers,
-  ...commentsHandlers
+  ...commentsHandlers,
+  ...friendsHandlers
 ]
