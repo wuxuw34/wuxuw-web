@@ -3,6 +3,8 @@ import Apis from "@/apis";
 import { avatarBgColor } from "@/constans/color";
 import { FaReply } from "react-icons/fa";
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
+import { getColorByString } from "@/utils/color";
 
 interface CommentItemProps {
   comment: CommentMessage;
@@ -10,28 +12,42 @@ interface CommentItemProps {
 }
 
 const CommentItem = ({ comment, onReply }: CommentItemProps) => {
-  const getAvatarColor = useCallback(() => {
-    const code = String(comment.username).charCodeAt(0);
-    return avatarBgColor[code % avatarBgColor.length];
-  }, [comment.username]);
-
   return (
     <div className="w-full overflow-x-auto">
       <div className="group flex flex-row gap-2">
         <div
           className="size-[32px] rounded-full text-center leading-[32px]"
           style={{
-            backgroundImage: `linear-gradient(#fff -300%, ${getAvatarColor()})`,
+            backgroundImage: `linear-gradient(#fff -300%, ${getColorByString(comment.username)})`,
           }}
         >
           {comment.username?.charAt(0).toUpperCase()}
         </div>
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center gap-1">
-              <span className="text-sm">{comment.username || "匿名用户"}</span>
-              <span>{comment.os}</span>
-              <span>{comment.browser}</span>
+          <div className="flex flex-row items-center gap-2">
+            <span
+              className="text-sm"
+              style={{
+                color: getColorByString(comment.username),
+              }}
+            >
+              {comment.username || "匿名用户"}
+            </span>
+            <Image
+              src={`/os/${comment.os || 'windows'}.png`}
+              alt={comment.os}
+              width={16}
+              height={16}
+            />
+            <div className="flex flex-row gap-1 shrink items-center">
+              <Image
+                src={`/broswer/${comment.browser?.split(" ")[0] || 'chrome'}.png`}
+                alt={comment.browser}
+                width={16}
+                height={16}
+                className="h-[16px]"
+              />
+              <span className="text-xs">{comment.browser?.split(" ")[1] || "unknown"}</span>
             </div>
           </div>
           <div className="cursor-text select-text">{comment.content}</div>

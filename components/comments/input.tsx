@@ -75,7 +75,7 @@ const CommentInput = forwardRef<CommentInputRef, CommentInputProps>(
                 "--color": getColorByString(replyComment.username),
                 "--bg-color": hexToRgba(
                   getColorByString(replyComment.username),
-                  0.1
+                  0.2
                 ),
               } as React.CSSProperties
             }
