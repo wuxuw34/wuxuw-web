@@ -13,7 +13,7 @@ export default function Page() {
       <div className="flex flex-col gap-2 lg:w-[300px] w-full">
         <HeroSection profile={config.profile} />
         <TagsSection tags={config.profile.tags || []} />
-        {/* <SkillsSection skills={config.profile.skills || []} /> */}
+        <SkillsSection skills={config.profile.skills || []} />
         <ExperienceSection experiences={config.profile.experiences || []} />
       </div>
       {/* 个人项目区域 */}

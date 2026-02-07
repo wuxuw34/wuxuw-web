@@ -1,14 +1,14 @@
 import { animeImgs } from "@/constans/image";
 
-export default function BlogProject() {
+export default function FileShareProject() {
   return (
     <div
       className="h-full bg-fixed bg-no-repeat bg-cover bg-center"
       style={{
-        backgroundImage: `url("${animeImgs[0]}")`,
+        backgroundImage: `url("${animeImgs[1]}")`,
       }}
     >
-      这个项目
+      123
     </div>
   );
 }
