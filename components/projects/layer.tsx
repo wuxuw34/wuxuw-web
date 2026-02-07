@@ -1,6 +1,7 @@
 interface LayerProps extends React.HTMLAttributes<HTMLDivElement> {
   z: number;
   img: string;
+  perspective: number;
 }
 
 export default function Layer({
@@ -8,19 +9,17 @@ export default function Layer({
   children,
   className,
   style,
+  perspective,
   img,
   ...rest
 }: LayerProps) {
   return (
     <div
       className={
-        " w-full h-full bg-center bg-no-repeat bg-cover " +
-        (className ?? "")
+        " w-full h-full bg-center bg-fixed bg-no-repeat bg-cover " + (className ?? "")
       }
       style={{
-        transform: `translateZ(${z}px)`,
         backgroundImage: `url("${img}")`,
-        scale: `${1 - z}`,
         ...style,
       }}
       {...rest}

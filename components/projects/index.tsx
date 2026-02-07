@@ -5,8 +5,9 @@ import FileShareProject from "./fileShare";
 import useWheel from "@/hooks/useWheel";
 import Layer from "./layer";
 import { animeImgs } from "@/constans/image";
+import ChatProject from "./chat";
 
-const els = [BlogProject, FileShareProject];
+const els = [BlogProject, FileShareProject, ChatProject];
 
 export default function Projects() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -56,13 +57,17 @@ export default function Projects() {
   return (
     <div className=" fixed top-0 left-0 w-full h-full ">
       <div
-        className=" overflow-y-auto perspective-[1px] transform-3d w-full h-full"
+        className=" overflow-y-auto  transform-3d w-full h-full"
+        style={{
+          perspective: `${els.length }px`,
+        }}
         ref={scrollRef}
       >
         {els.map((E, i) => (
           <Layer
             img={animeImgs[i]}
-            z={i - els.length + 1}
+            z={els.length - i - 1}
+            perspective={els.length }
             key={i}
           >
             <E />
