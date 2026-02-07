@@ -1,14 +1,14 @@
 import { animeImgs } from "@/constans/image";
+import Layer from "./layer";
 
 export default function FileShareProject() {
   return (
-    <div
-      className="h-full bg-fixed bg-no-repeat bg-cover bg-center"
-      style={{
-        backgroundImage: `url("${animeImgs[1]}")`,
-      }}
+    <Layer
+      img={animeImgs[1]}
+      z={0}
+     
     >
-      123
-    </div>
+      这个项目1232
+    </Layer>
   );
 }
