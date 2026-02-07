@@ -1,3 +1,4 @@
+import BlogProject from "./blog";
 
 
 export default function Projects(){
@@ -5,7 +6,7 @@ export default function Projects(){
 
   return (
     <div>
-      123
+      <BlogProject />
     </div>
   )
 }

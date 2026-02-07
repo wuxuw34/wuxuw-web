@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Menu() {
   return (
-    <div className="flex flex-row gap-2 justify-center  py-3 px-2">
+    <div className="flex flex-row gap-2 justify-center  py-3 px-2 z-10 fixed top-0 left-0 w-full ">
       {config.pages.map((page) => (
         <Link
           className="mini-card shadow bg-[rgba(255,255,255,0.05)] py-0 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer flex flex-row gap-1"

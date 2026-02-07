@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <Background />
         <Menu />
-        <div className="flex justify-center flex-row pt-12 max-lg:px-4">
+        <div className="flex justify-center flex-row pt-32 max-lg:px-4">
           {children}
         </div>
       </body>
